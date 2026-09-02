@@ -171,7 +171,7 @@
 
     <!-- Главный логотип -->
     <main class="hero">
-        <h1 class="logo-title">16.6</h1>
+        <h1 class="logo-title" id="countdown">99.9</h1>
         <div class="logo-sub">AGAIN</div>
         <p class="studio-desc">Independent Game Studio</p>
 
@@ -187,51 +187,44 @@
         © 2026 Sixteen and Six Again. All rights reserved.
     </footer>
 
-</body>
     <script>
-  function runAnimation() {
-    const counterElement = document.getElementById("countdown");
-    
-    // Если элемента нет, скрипт напишет об этом в консоль (F12)
-    if (!counterElement) {
-      console.warn("Ошибка: Не найден элемент с id='countdown' в HTML!");
-      return;
-    }
+      function runAnimation() {
+        const counterElement = document.getElementById("countdown");
+        if (!counterElement) return;
 
-    const startValue = 99.9;
-    const targetValue = 16.6;
-    const duration = 1400; // 1.4 секунды
-    const startTime = performance.now();
+        const startValue = 99.9;
+        const targetValue = 16.6;
+        const duration = 1400; // 1.4 секунды
+        const startTime = performance.now();
 
-    function easeOutCubic(t) {
-      return 1 - Math.pow(1 - t, 3);
-    }
+        function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
 
-    function updateCounter(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      const easedProgress = easeOutCubic(progress);
-      const currentValue = startValue - (startValue - targetValue) * easedProgress;
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          const easedProgress = easeOutCubic(progress);
+          const currentValue = startValue - (startValue - targetValue) * easedProgress;
 
-      counterElement.textContent = currentValue.toFixed(1);
+          counterElement.textContent = currentValue.toFixed(1);
 
-      if (progress < 1) {
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            counterElement.textContent = "16.6";
+          }
+        }
+
         requestAnimationFrame(updateCounter);
-      } else {
-        counterElement.textContent = "16.6";
       }
-    }
 
-    requestAnimationFrame(updateCounter);
-  }
-
-  // Запуск вне зависимости от скорости загрузки страницы
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", runAnimation);
-  } else {
-    runAnimation();
-  }
-</script>
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", runAnimation);
+      } else {
+        runAnimation();
+      }
+    </script>
+</body>
 </html>
-
