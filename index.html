@@ -3,28 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sixteen and Six Again</title>
+    <title>16.6 AGAIN — Independent Game Studio</title>
+    
+    <!-- Мета-теги для красивого превью в соцсетях и мессенджерах -->
+    <meta name="description" content="16.6 AGAIN — Independent Game Studio. Crafting worlds, 16.6 ms at a time.">
+    <meta property="og:title" content="16.6 AGAIN">
+    <meta property="og:description" content="Independent Game Studio">
+    <meta property="og:type" content="website">
+
+    <!-- Подключение атмосферного моноширинного шрифта -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #0d0f12;
-            color: #d1d5db;
-            font-family: monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
+        :root {
+            --bg-color: #0d0e11;
+            --text-primary: #ededf2;
+            --text-secondary: #5a6578;
+            --accent-blue: #4a6b82;
+            --accent-glow: rgba(74, 107, 130, 0.12);
         }
-        h1 { color: #f3f4f6; letter-spacing: 2px; }
-        p { color: #6b7280; font-size: 0.9em; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::selection {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 60%);
+            color: var(--text-primary);
+            font-family: 'Space Mono', 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Верхняя телеметрия */
+        .telemetry {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        .pulse-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: blink 2s infinite ease-in-out;
+        }
+
+        /* Центральный блок логотипа */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: heroReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .logo-title {
+            font-size: clamp(3.5rem, 9vw, 6.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 0 35px rgba(255, 255, 255, 0.08);
+        }
+
+        .logo-sub {
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
+            font-weight: 400;
+            color: var(--accent-blue);
+            letter-spacing: 0.45em;
+            margin-left: 0.45em; /* Оптическая компенсация трекинга */
+            text-transform: uppercase;
+        }
+
+        .studio-desc {
+            margin-top: 1.75rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Навигация / Ссылки */
+        .links {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .link-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+            background: rgba(74, 107, 130, 0.1);
+        }
+
+        /* Футер */
+        footer {
+            font-size: 0.75rem;
+            color: #3b4252;
+            letter-spacing: 0.05em;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes heroReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
     </style>
 </head>
 <body>
-    <div>
-        <h1>16.6 AGAIN</h1>
-        <p>Independent Game Studio</p>
-        <p style="margin-top: 2rem;">© 2026 Sixteen and Six Again. All rights reserved.</p>
+
+    <!-- Верхняя статус-строка с отсылкой к 60 FPS / Game Loop -->
+    <div class="telemetry">
+        <span class="pulse-dot"></span>Δt: 16.6ms // 60 FPS
     </div>
+
+    <!-- Главный логотип -->
+    <main class="hero">
+        <h1 class="logo-title">16.6</h1>
+        <div class="logo-sub">AGAIN</div>
+        <p class="studio-desc">Independent Game Studio</p>
+
+        <!-- Ссылки на витрины -->
+        <nav class="links">
+            <a href="https://sixteen-and-six-again.itch.io" target="_blank" class="link-btn">[ itch.io ]</a>
+            <a href="https://github.com/16-6-again" target="_blank" class="link-btn">[ github ]</a>
+        </nav>
+    </main>
+
+    <!-- Копирайт -->
+    <footer>
+        © 2026 Sixteen and Six Again. All rights reserved.
+    </footer>
+
 </body>
 </html>
