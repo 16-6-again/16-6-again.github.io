@@ -190,17 +190,21 @@
 </body>
 </html>
 
- <script>
-  document.addEventListener("DOMContentLoaded", () => {
+<script>
+  function runAnimation() {
     const counterElement = document.getElementById("countdown");
-    if (!counterElement) return;
+    
+    // Если элемента нет, скрипт напишет об этом в консоль (F12)
+    if (!counterElement) {
+      console.warn("Ошибка: Не найден элемент с id='countdown' в HTML!");
+      return;
+    }
 
     const startValue = 99.9;
     const targetValue = 16.6;
-    const duration = 1400; // Длительность анимации в миллисекундах (1.4 секунды)
+    const duration = 1400; // 1.4 секунды
     const startTime = performance.now();
 
-    // Функция плавного замедления (Ease-Out)
     function easeOutCubic(t) {
       return 1 - Math.pow(1 - t, 3);
     }
@@ -212,16 +216,24 @@
       const easedProgress = easeOutCubic(progress);
       const currentValue = startValue - (startValue - targetValue) * easedProgress;
 
-      // Оставляем ровно 1 знак после запятой
       counterElement.textContent = currentValue.toFixed(1);
 
       if (progress < 1) {
         requestAnimationFrame(updateCounter);
       } else {
-        counterElement.textContent = "16.6"; // Фиксируем точное финальное число
+        counterElement.textContent = "16.6";
       }
     }
 
     requestAnimationFrame(updateCounter);
-  });
+  }
+
+  // Запуск вне зависимости от скорости загрузки страницы
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runAnimation);
+  } else {
+    runAnimation();
+  }
 </script>
+
+
