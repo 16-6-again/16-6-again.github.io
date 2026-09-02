@@ -188,43 +188,26 @@
     </footer>
 
     <script>
-      function runAnimation() {
-        const counterElement = document.getElementById("countdown");
-        if (!counterElement) return;
+  (function() {
+    const el = document.getElementById("countdown");
+    if (!el) return;
 
-        const startValue = 99.9;
-        const targetValue = 16.6;
-        const duration = 1400; // 1.4 секунды
-        const startTime = performance.now();
+    let current = 99.9;
+    const target = 16.6;
+    const stepTime = 16.6; // ровно 1 кадр при 60 FPS
+    const totalSteps = 60; // 60 кадров (ровно 1 секунда)
+    const stepDecrement = (current - target) / totalSteps;
 
-        function easeOutCubic(t) {
-          return 1 - Math.pow(1 - t, 3);
-        }
-
-        function updateCounter(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          
-          const easedProgress = easeOutCubic(progress);
-          const currentValue = startValue - (startValue - targetValue) * easedProgress;
-
-          counterElement.textContent = currentValue.toFixed(1);
-
-          if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-          } else {
-            counterElement.textContent = "16.6";
-          }
-        }
-
-        requestAnimationFrame(updateCounter);
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", runAnimation);
+    const timer = setInterval(() => {
+      current -= stepDecrement;
+      if (current <= target) {
+        el.textContent = "16.6";
+        clearInterval(timer);
       } else {
-        runAnimation();
+        el.textContent = current.toFixed(1);
       }
-    </script>
+    }, stepTime);
+  })();
+</script>
 </body>
 </html>
